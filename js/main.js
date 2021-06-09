@@ -1,26 +1,5 @@
-//Функция возвращает случайное целое число
-function getRandomInteger(min, max) {
-  if (min >= 0 && max > min) {
-    const rand = min + Math.random() * (max + 1 - min);
-    return Math.floor(rand);
-  }
-  return null;
-}
-
-//Функция возвращает случайное число с плавающей точкой
-function getRandomFractional(min, max, length) {
-  if (min >= 0 && max > min) {
-    const rand = min + Math.random() * (max + 1 - min);
-    return (+rand.toFixed(length));
-  }
-  return null;
-}
-
 const SIMILAR_PLACE_COUNT = 10;
 const PLACE_TITLE = ['студия', 'логово', 'берлога', 'пещера', 'укрытие', 'бастион', 'форт', 'квартира с видом на море', 'бунгало', 'хижина'];
-const LOCATION_MIN = 1;
-const LOCATION_MAX = 100;
-const LOCATION_LENGHT = 5;
 const PLACE_PRICE_MIN = 10000;
 const PLACE_PRICE_MAX = 10000000;
 const PLACE_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
@@ -41,20 +20,40 @@ const LNG_MIN = 139.70000;
 const LNG_MAX = 139.80000;
 const LAT_LNG_FLOAT = 5;
 
+//Функция возвращает случайное целое число
+const getRandomInteger = (min, max) => {
+  if (min >= 0 && max > min) {
+    const rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
+  }
+  return null;
+};
+
+//Функция возвращает случайное число с плавающей точкой
+const getRandomFractional = (min, max, length) => {
+  if (min >= 0 && max > min) {
+    const rand = min + Math.random() * (max + 1 - min);
+    return (+rand.toFixed(length));
+  }
+  return null;
+};
+
 const createAuthor = () => `img/avatars/user0${getRandomInteger(0, SIMILAR_PLACE_COUNT)}.png`;
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const getNewArray = (array) => array.slice(0, getRandomInteger(0, array.length - 1));
 
-const createPlaceNearby = function() {
+const createPlaceNearby = () => {
+  const locationLat = getRandomFractional(LAT_MIN, LAT_MAX, LAT_LNG_FLOAT);
+  const locationLng = getRandomFractional(LNG_MIN, LNG_MAX, LAT_LNG_FLOAT);
   return {
     author: {
       avatar: createAuthor(),
     },
     offer: {
       title: getRandomArrayElement(PLACE_TITLE),
-      address: String(getRandomFractional(LOCATION_MIN, LOCATION_MAX, LOCATION_LENGHT), getRandomFractional(LOCATION_MIN, LOCATION_MAX, LOCATION_LENGHT)),
+      address: `${locationLat}, ${locationLng}`,
       price: getRandomInteger(PLACE_PRICE_MIN, PLACE_PRICE_MAX),
       type: getRandomArrayElement(PLACE_TYPE),
       rooms: getRandomInteger(PLACE_ROOMS_MIN, PLACE_ROOMS_MAX),
@@ -66,13 +65,13 @@ const createPlaceNearby = function() {
       photos: getNewArray(PLACE_PHOTOS),
     },
     location: {
-      lat: getRandomFractional(LAT_MIN, LAT_MAX, LAT_LNG_FLOAT),
-      lng: getRandomFractional(LNG_MIN, LNG_MAX, LAT_LNG_FLOAT),
+      lat: locationLat,
+      lng: locationLng,
     },
   };
 };
 
 const similarPlace = new Array(SIMILAR_PLACE_COUNT).fill(null).map(() => createPlaceNearby());
 
-similarPlace();
+similarPlace;
 // console.log(similarPlace);
