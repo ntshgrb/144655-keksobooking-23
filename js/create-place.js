@@ -1,3 +1,5 @@
+import {getRandomInteger, getRandomFractional} from './utils.js';
+
 const SIMILAR_PLACE_COUNT = 10;
 const PLACE_TITLES = ['студия', 'логово', 'берлога', 'пещера', 'укрытие', 'бастион', 'форт', 'квартира с видом на море', 'бунгало', 'хижина'];
 const PLACE_PRICE_MIN = 10000;
@@ -19,24 +21,6 @@ const LAT_MAX = 35.70000;
 const LNG_MIN = 139.70000;
 const LNG_MAX = 139.80000;
 const LAT_LNG_FLOAT = 5;
-
-//Функция возвращает случайное целое число
-const getRandomInteger = (min, max) => {
-  if (min >= 0 && max > min) {
-    const rand = min + Math.random() * (max + 1 - min);
-    return Math.floor(rand);
-  }
-  return null;
-};
-
-//Функция возвращает случайное число с плавающей точкой
-const getRandomFractional = (min, max, length) => {
-  if (min >= 0 && max > min) {
-    const rand = min + Math.random() * (max + 1 - min);
-    return (+rand.toFixed(length));
-  }
-  return null;
-};
 
 const createAuthor = () => `img/avatars/user0${getRandomInteger(0, SIMILAR_PLACE_COUNT)}.png`;
 
