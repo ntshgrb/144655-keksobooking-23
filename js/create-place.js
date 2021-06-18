@@ -22,7 +22,14 @@ const LNG_MIN = 139.70000;
 const LNG_MAX = 139.80000;
 const LAT_LNG_FLOAT = 5;
 
-const createAuthor = () => `img/avatars/user0${getRandomInteger(0, SIMILAR_PLACE_COUNT)}.png`;
+const createAuthor = () => {
+  const avatarIndex = getRandomInteger(1, SIMILAR_PLACE_COUNT);
+  if (avatarIndex < 10) {
+    return `img/avatars/user0${avatarIndex}.png`;
+  }
+  return `img/avatars/user${avatarIndex}.png`;
+  // avatarIndex < 10 ? `img/avatars/user0${avatarIndex}.png` : `img/avatars/user${avatarIndex}.png`;
+};
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
@@ -55,4 +62,5 @@ const createPlaceNearby = () => {
   };
 };
 
-export {createPlaceNearby, SIMILAR_PLACE_COUNT};
+const createSimilarPlaces = () => new Array(SIMILAR_PLACE_COUNT).fill(null).map(() => createPlaceNearby());
+export {createSimilarPlaces};
