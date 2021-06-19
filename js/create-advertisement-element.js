@@ -1,4 +1,3 @@
-import {createSimilarPlaces} from './create-place.js';
 const PLACE_TYPES_LIST = {
   'flat': 'Квартира',
   'bungalow': 'Бунгало',
@@ -6,16 +5,11 @@ const PLACE_TYPES_LIST = {
   'palace': 'Дворец',
   'hotel': 'Отель',
 };
-//сюда нужно вставить заполненный фрагмент
-const mapCanvas = document.querySelector('#map-canvas');
+
 //шаблон, который нужно склонировать и заполнить
 const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
-//фрагмент, который будем заполнять и вставлять в разметку
-const similarAdvertisementFragment = document.createDocumentFragment();
-//создали массив c временными данными
-const similarPlaces = createSimilarPlaces();
 
-similarPlaces.forEach((currentItem) => {
+const createAdvertisementElement = (currentItem) => {
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
   advertisementElement.querySelector('.popup__title').textContent = currentItem.offer.title;
   advertisementElement.querySelector('.popup__text--address').textContent = currentItem.offer.address;
@@ -61,6 +55,7 @@ similarPlaces.forEach((currentItem) => {
 
   advertisementElement.querySelector('.popup__avatar').src = currentItem.author.avatar;
 
-  similarAdvertisementFragment.appendChild(advertisementElement);
-});
-mapCanvas.appendChild(similarAdvertisementFragment.children[1]);
+  return advertisementElement;
+};
+
+export {createAdvertisementElement};
