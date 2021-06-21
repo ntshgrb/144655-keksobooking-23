@@ -1,5 +1,6 @@
 import {createSimilarPlaces} from './create-similar-places.js';
 import {createAdvertisementElement} from './create-advertisement-element.js';
+import './user-form.js';
 
 //сюда нужно вставить заполненный фрагмент
 const mapCanvas = document.querySelector('#map-canvas');
