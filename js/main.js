@@ -1,3 +1,4 @@
+import {getDisabledMode, getActiveMode} from './change-form-state.js';
 import {createSimilarPlaces} from './create-similar-places.js';
 import {createAdvertisementElement} from './create-advertisement-element.js';
 import './user-form.js';
@@ -12,4 +13,5 @@ const similarPlaces = createSimilarPlaces();
 const advertisementElement = createAdvertisementElement(similarPlaces[0]);
 similarAdvertisementFragment.appendChild(advertisementElement);
 mapCanvas.appendChild(similarAdvertisementFragment);
-
+getActiveMode();
+getDisabledMode();

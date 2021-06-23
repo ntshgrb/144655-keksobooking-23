@@ -28,7 +28,6 @@ const createAuthor = () => {
     return `img/avatars/user0${avatarIndex}.png`;
   }
   return `img/avatars/user${avatarIndex}.png`;
-  // avatarIndex < 10 ? `img/avatars/user0${avatarIndex}.png` : `img/avatars/user${avatarIndex}.png`;
 };
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
