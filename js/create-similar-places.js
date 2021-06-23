@@ -24,11 +24,10 @@ const LAT_LNG_FLOAT = 5;
 
 const createAuthor = () => {
   const avatarIndex = getRandomInteger(1, SIMILAR_PLACE_COUNT);
-  // if (avatarIndex < 10) {
-  //   return `img/avatars/user0${avatarIndex}.png`;
-  // }
-  // return `img/avatars/user${avatarIndex}.png`;
-  avatarIndex < 10 ? `img/avatars/user0${avatarIndex}.png` : `img/avatars/user${avatarIndex}.png`;
+  if (avatarIndex < 10) {
+    return `img/avatars/user0${avatarIndex}.png`;
+  }
+  return `img/avatars/user${avatarIndex}.png`;
 };
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];

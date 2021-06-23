@@ -15,4 +15,3 @@ similarAdvertisementFragment.appendChild(advertisementElement);
 mapCanvas.appendChild(similarAdvertisementFragment);
 getActiveMode();
 getDisabledMode();
-
