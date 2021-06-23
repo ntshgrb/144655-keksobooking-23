@@ -28,12 +28,16 @@ adPriceInput.addEventListener('input', () => {
   adPriceInput.reportValidity();
 });
 
+
 //Синхронизация поля «Количество комнат» и пол «Количество мест»
+//Может измениться порядок options в верстке. Придумай альтернативу!!!
 const roomNumberSelect = document.querySelector('#room_number');
 const roomCapacitySelect = document.querySelector('#capacity');
 if (roomNumberSelect.value === '1') {
   roomCapacitySelect.options[2].selected = true;
 }
+
+
 const syncRoomCapacity = () => {
   if (roomNumberSelect.value === '1' && roomCapacitySelect.value !== '1') {
     roomCapacitySelect.setCustomValidity('В одной комнате может разместиться только один постоялец');
