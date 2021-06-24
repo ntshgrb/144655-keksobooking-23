@@ -13,5 +13,5 @@ const similarPlaces = createSimilarPlaces();
 const advertisementElement = createAdvertisementElement(similarPlaces[0]);
 similarAdvertisementFragment.appendChild(advertisementElement);
 mapCanvas.appendChild(similarAdvertisementFragment);
-getActiveMode();
 getDisabledMode();
+getActiveMode();
