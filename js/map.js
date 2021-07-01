@@ -1,4 +1,5 @@
-import {createSimilarPlaces} from './create-similar-places.js';
+import {getActiveMode} from './change-form-state.js';
+// import {createSimilarPlaces} from './create-similar-places.js';
 import {createAdvertisementElement} from './create-advertisement-element.js';
 const tokioСoordinates = {
   lat: 35.68170,
@@ -6,7 +7,9 @@ const tokioСoordinates = {
 };
 
 //создаем карту
-const map = L.map('map-canvas').setView(
+const map = L.map('map-canvas').on('load', () => {
+  getActiveMode();
+}).setView(
   tokioСoordinates,
   13);
 
@@ -19,7 +22,7 @@ L.tileLayer(
 
 //создаем маркер для специальной метки
 const mainPinIcon = L.icon({
-  iconUrl: './../img/main-pin.svg',
+  iconUrl: '/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -34,29 +37,29 @@ const mainMarker = L.marker(
 mainMarker.addTo(map);
 
 // создаем объявления похожих мест
-const similarPlaces = createSimilarPlaces();
-similarPlaces.forEach((item) => {
-  const pinIcon = L.icon({
-    iconUrl: './../img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+const createMarkers = (places) => {
+  places.forEach((item) => {
+    const pinIcon = L.icon({
+      iconUrl: '/img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
+    const marker = L.marker(
+      {
+        lat: item.location.lat,
+        lng: item.location.lng,
+      },
+      {
+        icon: pinIcon,
+      },
+    );
+
+    marker.addTo(map).bindPopup(createAdvertisementElement(item),
+      {
+        keepInView: true,
+      },
+    );
   });
-
-  const marker = L.marker(
-    {
-      lat: item.location.lat,
-      lng: item.location.lng,
-    },
-    {
-      icon: pinIcon,
-    },
-  );
-
-  marker.addTo(map).bindPopup(createAdvertisementElement(item),
-    {
-      keepInView: true,
-    },
-  );
-});
-
-export {mainMarker, map, tokioСoordinates};
+};
+export {mainMarker, map, tokioСoordinates, createMarkers};

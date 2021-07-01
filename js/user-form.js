@@ -11,7 +11,7 @@ const placeTypeElement = formElement.querySelector('#type');
 const placePriceElement = formElement.querySelector('#price');
 const timeinElement = formElement.querySelector('#timein');
 const timeoutElement = formElement.querySelector('#timeout');
-const adressInputElement= formElement.querySelector('#address');
+const addressInputElement= formElement.querySelector('#address');
 const buttonReset = formElement.querySelector('.ad-form__reset');
 
 //Валидация поля названия
@@ -89,16 +89,16 @@ timeinElement.addEventListener('change', timeinHandler);
 timeoutElement.addEventListener('change', timeoutHandler);
 
 //передаем координаты главной метки
-adressInputElement.readOnly = true;
-const getAdressCoordinates = (markerPosition) => {
-  adressInputElement.value = `${markerPosition.getLatLng().lat.toFixed(5)}, ${markerPosition.getLatLng().lng.toFixed(5)}`;
+addressInputElement.readOnly = true;
+const setAddressCoordinates = (markerPosition) => {
+  addressInputElement.value = `${markerPosition.getLatLng().lat.toFixed(5)}, ${markerPosition.getLatLng().lng.toFixed(5)}`;
 };
 
 //задаем изначальное значение поля с координатами центрами
-getAdressCoordinates(mainMarker);
+setAddressCoordinates(mainMarker);
 //определение координат при смещении маркера
 mainMarker.on('moveend', (evt) => {
-  getAdressCoordinates(evt.target);
+  setAddressCoordinates(evt.target);
 });
 
 //нажатие на кнопку reset
@@ -112,5 +112,5 @@ buttonReset.addEventListener('click', (evt) => {
   map.setView(
     tokioСoordinates,
     13);
-  getAdressCoordinates(mainMarker);
+  setAddressCoordinates(mainMarker);
 });
