@@ -1,5 +1,4 @@
 import {getActiveMode} from './change-form-state.js';
-// import {createSimilarPlaces} from './create-similar-places.js';
 import {createAdvertisementElement} from './create-advertisement-element.js';
 const tokioСoordinates = {
   lat: 35.68170,
@@ -22,7 +21,7 @@ L.tileLayer(
 
 //создаем маркер для специальной метки
 const mainPinIcon = L.icon({
-  iconUrl: '/img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
@@ -40,7 +39,7 @@ mainMarker.addTo(map);
 const createMarkers = (places) => {
   places.forEach((item) => {
     const pinIcon = L.icon({
-      iconUrl: '/img/pin.svg',
+      iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
     });
