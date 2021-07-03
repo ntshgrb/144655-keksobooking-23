@@ -1,14 +1,18 @@
+import {mainMarker, map, tokioСoordinates} from './map.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
-const titleInputElement = document.querySelector('#title');
-const priceInputElement = document.querySelector('#price');
-const roomNumberElement = document.querySelector('#room_number');
-const roomCapacityElement = document.querySelector('#capacity');
-const placeTypeElement = document.querySelector('#type');
-const placePriceElement = document.querySelector('#price');
-const timeinElement = document.querySelector('#timein');
-const timeoutElement = document.querySelector('#timeout');
+const formElement = document.querySelector('.ad-form');
+const titleInputElement = formElement.querySelector('#title');
+const priceInputElement = formElement.querySelector('#price');
+const roomNumberElement = formElement.querySelector('#room_number');
+const roomCapacityElement = formElement.querySelector('#capacity');
+const placeTypeElement = formElement.querySelector('#type');
+const placePriceElement = formElement.querySelector('#price');
+const timeinElement = formElement.querySelector('#timein');
+const timeoutElement = formElement.querySelector('#timeout');
+const addressInputElement= formElement.querySelector('#address');
+const buttonReset = formElement.querySelector('.ad-form__reset');
 
 //Валидация поля названия
 titleInputElement.addEventListener('input', () => {
@@ -34,12 +38,7 @@ priceInputElement.addEventListener('input', () => {
   priceInputElement.reportValidity();
 });
 
-
 //Синхронизация поля «Количество комнат» и пол «Количество мест»
-if (roomNumberElement.value === '1') {
-  roomCapacityElement.value = '1';
-}
-
 const roomCapacityHandler = () => {
   if (roomNumberElement.value === '1' && roomCapacityElement.value !== '1') {
     roomCapacityElement.setCustomValidity('В одной комнате может разместиться только один постоялец');
@@ -88,3 +87,30 @@ const timeoutHandler = () => {
 };
 timeinElement.addEventListener('change', timeinHandler);
 timeoutElement.addEventListener('change', timeoutHandler);
+
+//передаем координаты главной метки
+addressInputElement.readOnly = true;
+const setAddressCoordinates = (markerPosition) => {
+  addressInputElement.value = `${markerPosition.getLatLng().lat.toFixed(5)}, ${markerPosition.getLatLng().lng.toFixed(5)}`;
+};
+
+//задаем изначальное значение поля с координатами центрами
+setAddressCoordinates(mainMarker);
+//определение координат при смещении маркера
+mainMarker.on('moveend', (evt) => {
+  setAddressCoordinates(evt.target);
+});
+
+//нажатие на кнопку reset
+buttonReset.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  formElement.reset();
+  mainMarker.setLatLng(
+    tokioСoordinates,
+  );
+
+  map.setView(
+    tokioСoordinates,
+    13);
+  setAddressCoordinates(mainMarker);
+});
