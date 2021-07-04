@@ -1,8 +1,9 @@
-import {mainMarker, map, tokioСoordinates} from './map.js';
+import {mainMarker, map, TOKIO_СOORDINATES, initialMapScale} from './map.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
 const formElement = document.querySelector('.ad-form');
+const formFiltersElement = document.querySelector('.map__filters');
 const titleInputElement = formElement.querySelector('#title');
 const priceInputElement = formElement.querySelector('#price');
 const roomNumberElement = formElement.querySelector('#room_number');
@@ -105,12 +106,13 @@ mainMarker.on('moveend', (evt) => {
 buttonReset.addEventListener('click', (evt) => {
   evt.preventDefault();
   formElement.reset();
+  formFiltersElement.reset();
   mainMarker.setLatLng(
-    tokioСoordinates,
+    TOKIO_СOORDINATES,
   );
 
   map.setView(
-    tokioСoordinates,
-    13);
+    TOKIO_СOORDINATES,
+    initialMapScale);
   setAddressCoordinates(mainMarker);
 });

@@ -1,33 +1,39 @@
-import {getActiveMode} from './change-form-state.js';
 import {createAdvertisementElement} from './create-advertisement-element.js';
-const tokioСoordinates = {
+const TOKIO_СOORDINATES = {
   lat: 35.68170,
   lng: 139.75389,
 };
+const initialMapScale = 13;
+const mainIconSize = [52, 52];
+const mainIconAnchor = [26, 52];
+const iconSize = [40, 40];
+const iconAnchor = [20, 40];
 
 //создаем карту
-const map = L.map('map-canvas').on('load', () => {
-  getActiveMode();
-}).setView(
-  tokioСoordinates,
-  13);
+const map = L.map('map-canvas');
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+const setMap = () => {
+  map.setView(
+    TOKIO_СOORDINATES,
+    initialMapScale);
+
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    },
+  ).addTo(map);
+};
 
 //создаем маркер для специальной метки
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: mainIconSize,
+  iconAnchor: mainIconAnchor,
 });
 
 const mainMarker = L.marker(
-  tokioСoordinates,
+  TOKIO_СOORDINATES,
   {
     draggable: true,
     icon: mainPinIcon,
@@ -40,8 +46,8 @@ const createMarkers = (places) => {
   places.forEach((item) => {
     const pinIcon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+      iconSize: iconSize,
+      iconAnchor: iconAnchor,
     });
 
     const marker = L.marker(
@@ -61,4 +67,4 @@ const createMarkers = (places) => {
     );
   });
 };
-export {mainMarker, map, tokioСoordinates, createMarkers};
+export {setMap, mainMarker, map, TOKIO_СOORDINATES, initialMapScale, createMarkers};

@@ -34,5 +34,4 @@ const getActiveMode = () => {
   });
 };
 
-getDisabledMode();
-export {getActiveMode};
+export {getDisabledMode, getActiveMode};

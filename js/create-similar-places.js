@@ -61,5 +61,5 @@ const createPlaceNearby = () => {
   };
 };
 
-const createSimilarPlaces = () => new Array(SIMILAR_PLACE_COUNT).fill(null).map(() => createPlaceNearby());
-export {createSimilarPlaces};
+const CreateSimilarPlaces = () => new Array(SIMILAR_PLACE_COUNT).fill(null).map(() => createPlaceNearby());
+export {CreateSimilarPlaces};

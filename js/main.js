@@ -1,6 +1,11 @@
-import './change-form-state.js';
-import {createSimilarPlaces} from './create-similar-places.js';
-import {createMarkers} from './map.js';
+import {getDisabledMode, getActiveMode} from './change-form-state.js';
+import {CreateSimilarPlaces} from './create-similar-places.js';
+import {setMap, map, createMarkers} from './map.js';
 import './user-form.js';
-const similarPlaces = createSimilarPlaces();
+getDisabledMode();
+map.on('load', () => {
+  getActiveMode();
+});
+setMap();
+const similarPlaces = CreateSimilarPlaces();
 createMarkers(similarPlaces);
