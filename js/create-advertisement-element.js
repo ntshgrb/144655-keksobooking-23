@@ -21,17 +21,17 @@ const createAdvertisementElement = (currentItem) => {
 
   //выводим все доступные удобства в объявлении
   const featuresListContainer = advertisementElement.querySelector('.popup__features');
-  const modifiers = currentItem.offer.features.map((feature) => `popup__feature--${feature}`);
-  featuresListContainer.querySelectorAll('.popup__feature').forEach((classItem) => {
-    const modifier = classItem.classList[1];
-    if (!modifiers.includes(modifier)) {
-      classItem.remove();
-    }
-  });
-  if (featuresListContainer.children.length === 0) {
+  if (currentItem.offer.features) {
+    const modifiers = currentItem.offer.features.map((feature) => `popup__feature--${feature}`);
+    featuresListContainer.querySelectorAll('.popup__feature').forEach((classItem) => {
+      const modifier = classItem.classList[1];
+      if (!modifiers.includes(modifier)) {
+        classItem.remove();
+      }
+    });
+  } else {
     featuresListContainer.remove();
   }
-
   //выводим описание
   advertisementElement.querySelector('.popup__description').textContent = currentItem.offer.description;
   if (advertisementElement.querySelector('.popup__description').textContent === undefined || advertisementElement.querySelector('.popup__description').textContent === '') {
@@ -40,17 +40,17 @@ const createAdvertisementElement = (currentItem) => {
 
   //выводим фотографии из списка offer.photos
   const photosContainer = advertisementElement.querySelector('.popup__photos');
-  const photoItemTemplate = photosContainer.querySelector('.popup__photo');
-  const photosSrc = currentItem.offer.photos;
-  photosSrc.forEach((photoSrc) => {
-    const photoItem = photoItemTemplate.cloneNode(true);
-    photoItem.src = photoSrc;
-    photosContainer.appendChild(photoItem);
-  });
-  photosContainer.children[0].remove();
-  //Если массив с фото пустой, то удаляем div для фото
-  if (currentItem.offer.photos.length === 0) {
+  if (!currentItem.offer.photos) {
     photosContainer.remove();
+  } else {
+    const photoItemTemplate = photosContainer.querySelector('.popup__photo');
+    const photosSrc = currentItem.offer.photos;
+    photosSrc.forEach((photoSrc) => {
+      const photoItem = photoItemTemplate.cloneNode(true);
+      photoItem.src = photoSrc;
+      photosContainer.appendChild(photoItem);
+    });
+    photosContainer.children[0].remove();
   }
 
   advertisementElement.querySelector('.popup__avatar').src = currentItem.author.avatar;

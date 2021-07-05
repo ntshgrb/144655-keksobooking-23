@@ -1,4 +1,5 @@
 import {mainMarker, map, TOKIO_СOORDINATES, initialMapScale} from './map.js';
+import {showMessage, messageSuccuss, messageError} from './popup.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -13,7 +14,8 @@ const placePriceElement = formElement.querySelector('#price');
 const timeinElement = formElement.querySelector('#timein');
 const timeoutElement = formElement.querySelector('#timeout');
 const addressInputElement= formElement.querySelector('#address');
-const buttonReset = formElement.querySelector('.ad-form__reset');
+const buttonResetElement = formElement.querySelector('.ad-form__reset');
+const SERVER = 'https://23.javascript.pages.academy/keksobooking';
 
 //Валидация поля названия
 titleInputElement.addEventListener('input', () => {
@@ -97,22 +99,45 @@ const setAddressCoordinates = (markerPosition) => {
 
 //задаем изначальное значение поля с координатами центрами
 setAddressCoordinates(mainMarker);
+
 //определение координат при смещении маркера
 mainMarker.on('moveend', (evt) => {
   setAddressCoordinates(evt.target);
 });
 
-//нажатие на кнопку reset
-buttonReset.addEventListener('click', (evt) => {
-  evt.preventDefault();
+//форма и карта переходит в дефолтное состояние
+const setDefaultState = () => {
   formElement.reset();
   formFiltersElement.reset();
   mainMarker.setLatLng(
     TOKIO_СOORDINATES,
   );
-
   map.setView(
     TOKIO_СOORDINATES,
     initialMapScale);
   setAddressCoordinates(mainMarker);
+};
+
+//нажатие на кнопку reset
+buttonResetElement.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  setDefaultState();
+});
+
+//submit формы
+formElement.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  fetch(
+    SERVER,
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
+    .then(() => setDefaultState())
+    .then(() => showMessage(messageSuccuss))
+    .catch(() => {
+      showMessage(messageError);
+    });
 });
