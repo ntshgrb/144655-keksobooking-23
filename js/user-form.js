@@ -1,5 +1,5 @@
 import {mainMarker, map, TOKIO_СOORDINATES, initialMapScale} from './map.js';
-import {showMessage, messageSuccuss, messageError} from './popup.js';
+import {sendData} from './fetch.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -15,7 +15,6 @@ const timeinElement = formElement.querySelector('#timein');
 const timeoutElement = formElement.querySelector('#timeout');
 const addressInputElement= formElement.querySelector('#address');
 const buttonResetElement = formElement.querySelector('.ad-form__reset');
-const SERVER = 'https://23.javascript.pages.academy/keksobooking';
 
 //Валидация поля названия
 titleInputElement.addEventListener('input', () => {
@@ -128,16 +127,5 @@ buttonResetElement.addEventListener('click', (evt) => {
 formElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
-  fetch(
-    SERVER,
-    {
-      method: 'POST',
-      body: formData,
-    },
-  )
-    .then(() => setDefaultState())
-    .then(() => showMessage(messageSuccuss))
-    .catch(() => {
-      showMessage(messageError);
-    });
+  sendData(formData, setDefaultState);
 });

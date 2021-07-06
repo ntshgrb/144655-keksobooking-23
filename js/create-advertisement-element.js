@@ -45,12 +45,12 @@ const createAdvertisementElement = (currentItem) => {
   } else {
     const photoItemTemplate = photosContainer.querySelector('.popup__photo');
     const photosSrc = currentItem.offer.photos;
+    photosContainer.children[0].remove();
     photosSrc.forEach((photoSrc) => {
       const photoItem = photoItemTemplate.cloneNode(true);
       photoItem.src = photoSrc;
       photosContainer.appendChild(photoItem);
     });
-    photosContainer.children[0].remove();
   }
 
   advertisementElement.querySelector('.popup__avatar').src = currentItem.author.avatar;

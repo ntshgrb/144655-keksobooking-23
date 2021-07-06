@@ -29,9 +29,12 @@ const getActiveMode = () => {
   mapFiltersSelects.forEach((item) => {
     item.disabled = false;
   });
+};
+
+const getActiveFilter = () => {
   mapFiltersFieldsets.forEach((item) => {
     item.disabled = false;
   });
 };
 
-export {getDisabledMode, getActiveMode};
+export {getDisabledMode, getActiveMode, getActiveFilter};

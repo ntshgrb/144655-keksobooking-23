@@ -4,18 +4,21 @@ const TOKIO_СOORDINATES = {
   lng: 139.75389,
 };
 const initialMapScale = 13;
-const mainIconSize = [52, 52];
-const mainIconAnchor = [26, 52];
-const iconSize = [40, 40];
-const iconAnchor = [20, 40];
+const MAIN_ICON_SIZE = [52, 52];
+const MAIN_ICON_ANCHOR = [26, 52];
+const ICON_SIZE = [40, 40];
+const ICON_ANCHOR = [20, 40];
 
 //создаем карту
 const map = L.map('map-canvas');
 
-const setMap = () => {
-  map.setView(
-    TOKIO_СOORDINATES,
-    initialMapScale);
+const setMap = (mode) => {
+  map.on('load', () => {
+    mode();
+  })
+    .setView(
+      TOKIO_СOORDINATES,
+      initialMapScale);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -28,8 +31,8 @@ const setMap = () => {
 //создаем маркер для специальной метки
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: mainIconSize,
-  iconAnchor: mainIconAnchor,
+  iconSize: MAIN_ICON_SIZE,
+  iconAnchor: MAIN_ICON_ANCHOR,
 });
 
 const mainMarker = L.marker(
@@ -46,8 +49,8 @@ const createMarkers = (places) => {
   places.forEach((item) => {
     const pinIcon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: iconSize,
-      iconAnchor: iconAnchor,
+      iconSize: ICON_SIZE,
+      iconAnchor: ICON_ANCHOR,
     });
 
     const marker = L.marker(

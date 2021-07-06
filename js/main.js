@@ -1,10 +1,17 @@
-import {getDisabledMode, getActiveMode} from './change-form-state.js';
-import {setMap, map} from './map.js';
-import {getData} from './get-data-fetch.js';
+import {getDisabledMode, getActiveMode, getActiveFilter} from './change-form-state.js';
+import {createMarkers, setMap} from './map.js';
+import {getData} from './fetch.js';
 import './user-form.js';
+//куда как?
+// const SIMILAR_PLACE_COUNT = 10;
+// createMarkers(json.slice(0, SIMILAR_PLACE_COUNT));
 getDisabledMode();
-map.on('load', () => {
-  getActiveMode();
+setMap(getActiveMode);
+const promise = new Promise (() => {
+  getData(createMarkers);
 });
-setMap();
-getData();
+promise.then (
+  getActiveFilter());
+//???
+// getData(createMarkers);
+// getActiveFilter();
