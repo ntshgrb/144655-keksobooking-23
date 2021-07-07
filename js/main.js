@@ -7,11 +7,13 @@ import './user-form.js';
 // createMarkers(json.slice(0, SIMILAR_PLACE_COUNT));
 getDisabledMode();
 setMap(getActiveMode);
-const promise = new Promise (() => {
-  getData(createMarkers);
-});
-promise.then (
-  getActiveFilter());
+// const promise = new Promise (() => {
+//   getData(createMarkers);
+// });
+// promise.then (
+//   getActiveFilter());
+
+getData(createMarkers, () => getActiveFilter());
 //???
 // getData(createMarkers);
 // getActiveFilter();
