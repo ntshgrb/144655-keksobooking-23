@@ -12,9 +12,9 @@ const ICON_ANCHOR = [20, 40];
 //создаем карту
 const map = L.map('map-canvas');
 
-const setMap = (mode) => {
+const setMap = (cb) => {
   map.on('load', () => {
-    mode();
+    cb();
   })
     .setView(
       TOKIO_СOORDINATES,

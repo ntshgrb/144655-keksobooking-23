@@ -1,36 +1,41 @@
-import {showAlert} from './show-alert.js';
-import {showMessage, messageSuccuss, messageError} from './popup.js';
-const DATA_SOURCE = 'https://23.javascript.pages.academy/keksobooking/data';
+const DATA = 'https://23.javascript.pages.academy/keksobooking/data';
 const SERVER = 'https://23.javascript.pages.academy/keksobooking';
 
-const getData = (useData) => {
-  fetch(DATA_SOURCE)
+const getData = (onSuccess, onFail) => {
+  fetch(DATA)
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
       throw new Error(`${response.status} ${response.statusText}`);
     })
-    .then((json) => {
-      useData(json);
+    .then((response) => {
+      onSuccess(response);
     })
     .catch((err) => {
-      showAlert(err);
+      onFail(`Ошибка загрузки данных ${err}`);
     });
 };
 
-const sendData = (data, reset) => {
+const sendData = (onSuccess, onFail, body) => {
   fetch(
     SERVER,
     {
       method: 'POST',
-      body: data,
+      body,
     },
   )
-    .then(() => reset())
-    .then(() => showMessage(messageSuccuss))
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else if (response.status >= 500 && response.status <= 505) {
+        onFail('Произошла ошибка на сервере. Попробуйте ещё раз');
+      } else {
+        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      }
+    })
     .catch(() => {
-      showMessage(messageError);
+      onFail('Не удалось отправить форму. Попробуйте ещё раз');
     });
 };
 

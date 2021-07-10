@@ -1,5 +1,6 @@
 import {mainMarker, map, TOKIO_СOORDINATES, initialMapScale} from './map.js';
 import {sendData} from './fetch.js';
+import {showMessageSuccess, showMessageError} from './popup.js';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -127,5 +128,7 @@ buttonResetElement.addEventListener('click', (evt) => {
 formElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
-  sendData(formData, setDefaultState);
+  sendData(() => {
+    showMessageSuccess();
+    setDefaultState();}, showMessageError, formData);
 });
