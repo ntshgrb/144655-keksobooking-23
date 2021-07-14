@@ -1,16 +1,21 @@
 import {setDisabledMode, setActiveMode, setActiveFilter} from './change-form-state.js';
-import {createMarkers, setMap} from './map.js';
+import {setMap, renderPlaces, removePlaces} from './map.js';
 import {getData} from './fetch.js';
-import{showAlert} from './show-alert.js';
+import {showAlert} from './show-alert.js';
 import './user-form.js';
-
-const SIMILAR_PLACES_COUNT = 10;
+import {setFilterFormChange, setFilterPlaces} from './filter.js';
+import {debounce} from './utils/debounce.js';
 
 setDisabledMode();
 setMap(() => {
   setActiveMode();
-  getData((json) => {
-    createMarkers(json.slice(0, SIMILAR_PLACES_COUNT));
+  getData((places) => {
+    renderPlaces(places);
+    setFilterFormChange(() => {
+      const filteredPlaces = setFilterPlaces(places);
+      removePlaces();
+      debounce(() => renderPlaces(filteredPlaces));
+    });
     setActiveFilter();
   }, (error) => showAlert(error));
 });
