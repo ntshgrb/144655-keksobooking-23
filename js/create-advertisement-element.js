@@ -5,7 +5,6 @@ const PLACE_TYPES_LIST = {
   'palace': 'Дворец',
   'hotel': 'Отель',
 };
-
 //шаблон, который нужно склонировать и заполнить
 const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 
