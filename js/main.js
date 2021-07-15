@@ -11,11 +11,10 @@ setMap(() => {
   setActiveMode();
   getData((places) => {
     renderPlaces(places);
-    setFilterFormChange(() => {
-      const filteredPlaces = setFilterPlaces(places);
+    setFilterFormChange(debounce(() => {
       removePlaces();
-      debounce(() => renderPlaces(filteredPlaces));
-    });
+      renderPlaces(setFilterPlaces(places));
+    }));
     setActiveFilter();
   }, (error) => showAlert(error));
 });

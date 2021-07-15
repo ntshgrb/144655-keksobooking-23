@@ -1,3 +1,4 @@
+import {renderPhotoPreview} from './photos.js';
 //форма объявления
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('fieldset');
@@ -5,6 +6,11 @@ const adFormElements = adForm.querySelectorAll('fieldset');
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersSelects = mapFilters.querySelectorAll('select');
 const mapFiltersFeatures = mapFilters.querySelector('.map__features');
+//для превью фото
+const formAvatarChooser = document.querySelector('.ad-form-header__input');
+const formAvatarPreview = document.querySelector('.ad-form-header__preview img');
+const placePhotoChooser = document.querySelector('.ad-form__input');
+const placePhotoPreview = document.querySelector('.ad-form__photo');
 
 const setDisabledMode = () => {
   adForm.classList.add('ad-form--disabled');
@@ -24,6 +30,8 @@ const setActiveMode = () => {
   adFormElements.forEach((element) => {
     element.disabled = false;
   });
+  formAvatarChooser.addEventListener('change', () => renderPhotoPreview(formAvatarChooser, formAvatarPreview));
+  placePhotoChooser.addEventListener('change', () => renderPhotoPreview(placePhotoChooser, placePhotoPreview));
 };
 
 const setActiveFilter = () => {
