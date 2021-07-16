@@ -7,10 +7,10 @@ const mapFilters = document.querySelector('.map__filters');
 const mapFiltersSelects = mapFilters.querySelectorAll('select');
 const mapFiltersFeatures = mapFilters.querySelector('.map__features');
 //для превью фото
-const formAvatarChooser = document.querySelector('.ad-form-header__input');
-const formAvatarPreview = document.querySelector('.ad-form-header__preview img');
-const placePhotoChooser = document.querySelector('.ad-form__input');
-const placePhotoPreview = document.querySelector('.ad-form__photo');
+const formAvatarChooser = adForm.querySelector('.ad-form-header__input');
+const formAvatarPreview = adForm.querySelector('.ad-form-header__preview img');
+const placePhotoChooser = adForm.querySelector('.ad-form__input');
+const placePhotoPreview = adForm.querySelector('.ad-form__photo');
 
 const setDisabledMode = () => {
   adForm.classList.add('ad-form--disabled');
