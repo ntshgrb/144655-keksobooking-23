@@ -4,7 +4,7 @@ const TOKIO_СOORDINATES = {
   lat: 35.68170,
   lng: 139.75389,
 };
-const initialMapScale = 13;
+const INITIAL_MAP_SCALE = 13;
 const MAIN_ICON_SIZE = [52, 52];
 const MAIN_ICON_ANCHOR = [26, 52];
 const ICON_SIZE = [40, 40];
@@ -20,7 +20,7 @@ const setMap = (cb) => {
   })
     .setView(
       TOKIO_СOORDINATES,
-      initialMapScale);
+      INITIAL_MAP_SCALE);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -83,4 +83,4 @@ const removePlaces = () => {
   markers.forEach((marker) => marker.remove());
 };
 
-export {setMap, mainMarker, map, TOKIO_СOORDINATES, initialMapScale, renderPlaces, addMarkerOnMap, removePlaces};
+export {setMap, mainMarker, map, TOKIO_СOORDINATES, INITIAL_MAP_SCALE, renderPlaces, addMarkerOnMap, removePlaces};

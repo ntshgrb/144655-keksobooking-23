@@ -1,4 +1,4 @@
-import {mainMarker, map, TOKIO_СOORDINATES, initialMapScale} from './map.js';
+import {mainMarker, map, TOKIO_СOORDINATES, INITIAL_MAP_SCALE} from './map.js';
 import {sendData} from './fetch.js';
 import {showMessageSuccess, showMessageError} from './popup.js';
 const MIN_TITLE_LENGTH = 30;
@@ -114,7 +114,7 @@ const setDefaultState = () => {
   );
   map.setView(
     TOKIO_СOORDINATES,
-    initialMapScale);
+    INITIAL_MAP_SCALE);
   setAddressCoordinates(mainMarker);
 };
 
