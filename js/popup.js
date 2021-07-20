@@ -11,8 +11,8 @@ const showMessageSuccess = () => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       messageSuccuss.remove();
+      document.removeEventListener('keydown', keydownHandler);
     }
-    document.removeEventListener('keydown', keydownHandler);
   };
   document.addEventListener('keydown', keydownHandler);
   messageSuccuss.addEventListener('click', () => {
@@ -28,8 +28,8 @@ const showMessageError = (message) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       messageError.remove();
+      document.removeEventListener('keydown', keydownHandler);
     }
-    document.removeEventListener('keydown', keydownHandler);
   };
   document.addEventListener('keydown', keydownHandler);
   messageErrorButton.addEventListener('click', () => {
