@@ -16,6 +16,9 @@ const timeinElement = formElement.querySelector('#timein');
 const timeoutElement = formElement.querySelector('#timeout');
 const addressInputElement= formElement.querySelector('#address');
 const buttonResetElement = formElement.querySelector('.ad-form__reset');
+const avatarPreview = formElement.querySelector('.ad-form-header__preview img');
+const avatarPreviewDefault = formElement.querySelector('.ad-form-header__preview img').src;
+const adPhotoContainer = formElement.querySelector('.ad-form__photo');
 
 //Валидация поля названия
 titleInputElement.addEventListener('input', () => {
@@ -42,7 +45,7 @@ priceInputElement.addEventListener('input', () => {
 });
 
 //Синхронизация поля «Количество комнат» и пол «Количество мест»
-const roomCapacityHandler = () => {
+const roomCapacityChangeHandler = () => {
   if (roomNumberElement.value === '1' && roomCapacityElement.value !== '1') {
     roomCapacityElement.setCustomValidity('В одной комнате может разместиться только один постоялец');
   } else if (roomNumberElement.value === '2' && roomCapacityElement.value !== '1' && roomCapacityElement.value !== '2') {
@@ -57,11 +60,11 @@ const roomCapacityHandler = () => {
   roomCapacityElement.reportValidity();
 };
 
-roomNumberElement.addEventListener('change', roomCapacityHandler);
-roomCapacityElement.addEventListener('change', roomCapacityHandler);
+roomNumberElement.addEventListener('change', roomCapacityChangeHandler);
+roomCapacityElement.addEventListener('change', roomCapacityChangeHandler);
 
 //синхронизация полей «Тип жилья» и «Цена за ночь»
-const placeTypeElementHandler = () => {
+const placeTypeChangeHandler = () => {
   if (placeTypeElement.value === 'bungalow') {
     placePriceElement.placeholder = '0';
   } else if (placeTypeElement.value === 'flat') {
@@ -78,18 +81,18 @@ const placeTypeElementHandler = () => {
     placePriceElement.min = '10000';
   }
 };
-placeTypeElementHandler();
-placeTypeElement.addEventListener('change', placeTypeElementHandler);
+placeTypeChangeHandler();
+placeTypeElement.addEventListener('change', placeTypeChangeHandler);
 
 //синхронизация полей «Время заезда-выезда»
-const timeinHandler = () => {
+const timeinChangeHandler = () => {
   timeoutElement.value = timeinElement.value;
 };
-const timeoutHandler = () => {
+const timeoutChangeHandler = () => {
   timeinElement.value = timeoutElement.value;
 };
-timeinElement.addEventListener('change', timeinHandler);
-timeoutElement.addEventListener('change', timeoutHandler);
+timeinElement.addEventListener('change', timeinChangeHandler);
+timeoutElement.addEventListener('change', timeoutChangeHandler);
 
 //передаем координаты главной метки
 addressInputElement.readOnly = true;
@@ -116,6 +119,8 @@ const setDefaultState = () => {
     TOKIO_СOORDINATES,
     INITIAL_MAP_SCALE);
   setAddressCoordinates(mainMarker);
+  avatarPreview.src = avatarPreviewDefault;
+  adPhotoContainer.querySelectorAll('img').forEach((child) => child.remove());
 };
 
 //нажатие на кнопку reset

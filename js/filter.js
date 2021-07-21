@@ -59,6 +59,9 @@ const setFilterFormChange = (cb) => {
   mapFilterElement.addEventListener('change', () => {
     cb();
   });
+  mapFilterElement.addEventListener('reset', () => {
+    cb();
+  });
 };
 
 export {setFilterPlaces, setFilterFormChange};

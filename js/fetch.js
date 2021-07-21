@@ -1,5 +1,7 @@
 const DATA = 'https://23.javascript.pages.academy/keksobooking/data';
 const SERVER = 'https://23.javascript.pages.academy/keksobooking';
+const SERVER_ERROR_FROM = 500;
+const SERVER_ERROR_TO = 505;
 
 const getData = (onSuccess, onFail) => {
   fetch(DATA)
@@ -28,7 +30,7 @@ const sendData = (onSuccess, onFail, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
-      } else if (response.status >= 500 && response.status <= 505) {
+      } else if (response.status >= SERVER_ERROR_FROM && response.status <= SERVER_ERROR_TO) {
         onFail('Произошла ошибка на сервере. Попробуйте ещё раз');
       } else {
         onFail('Не удалось отправить форму. Попробуйте ещё раз');

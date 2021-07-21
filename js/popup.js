@@ -7,38 +7,38 @@ const messageErrorButton = messageError.querySelector('.error__button');
 
 const showMessageSuccess = () => {
   document.body.appendChild(messageSuccuss);
-  const keydownHandler = (evt) => {
+  const documentKeydownHandler = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       messageSuccuss.remove();
-      document.removeEventListener('keydown', keydownHandler);
+      document.removeEventListener('keydown', documentKeydownHandler);
     }
   };
-  document.addEventListener('keydown', keydownHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
   messageSuccuss.addEventListener('click', () => {
     messageSuccuss.remove();
-    document.removeEventListener('keydown', keydownHandler);
+    document.removeEventListener('keydown', documentKeydownHandler);
   });
 };
 
 const showMessageError = (message) => {
   messageErrorText.textContent = message;
   document.body.appendChild(messageError);
-  const keydownHandler = (evt) => {
+  const documentKeydownHandler = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       messageError.remove();
-      document.removeEventListener('keydown', keydownHandler);
+      document.removeEventListener('keydown', documentKeydownHandler);
     }
   };
-  document.addEventListener('keydown', keydownHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
   messageErrorButton.addEventListener('click', () => {
     messageError.remove();
-    document.removeEventListener('keydown', keydownHandler);
+    document.removeEventListener('keydown', documentKeydownHandler);
   });
   messageError.addEventListener('click', () => {
     messageError.remove();
-    document.removeEventListener('keydown', keydownHandler);
+    document.removeEventListener('keydown', documentKeydownHandler);
   });
 };
 
